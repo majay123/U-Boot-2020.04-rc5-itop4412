@@ -2179,7 +2179,7 @@ config CMD_UBIFS
 	select LZO
 	help
 	  UBIFS is a file system for flash devices which works on top of UBI.
-config CMD_BOOT
+config CMD_BEEP
 	bool "beep"
 	help
 		BEEP support.
