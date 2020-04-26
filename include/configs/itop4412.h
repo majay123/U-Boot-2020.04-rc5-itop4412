@@ -91,4 +91,10 @@
                                         + SPL_SZIE + UBOOT_SIZE \
                                         + TZSW_SIZE)
 
+/* USB */
+#define CONFIG_USB_EHCI_EXYNOS         	1
+
+/* USB-KEYBOARD */
+#define CONFIG_SYS_STDIO_DEREGISTER 	1 
+
 #endif	/* __CONFIG_H */

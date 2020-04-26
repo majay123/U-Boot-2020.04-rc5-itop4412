@@ -92,3 +92,5 @@ GTAGS
 *.orig
 *~
 \#*#
+
+configs/itop4412_defconfig.ood

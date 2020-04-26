@@ -17,9 +17,13 @@
 	model = "TOPEET iTOP4412 development board based on Exynos4412";
 	compatible = "TOPEET,itop4412", "samsung,exynos4412";
 
-        chose {
-                stdout-path = "/serial@13820000";
-        };
+	chose {
+		stdout-path = "/serial@13820000";
+	};
+
+	memory {
+        reg = <0x40000000 0x80000000>;
+    };
 
 	aliases {
 		serial2 = "/serial@13820000";
@@ -63,18 +67,6 @@
 			status = "disabled";
 	};
 
-
-	ehci@12580000 {
-		compatible = "samsung,exynos-ehci";
-		reg = <0x12580000 0x100>;
-		#address-cells = <1>;
-		#size-cells = <1>;
-		phy {
-			compatible = "samsung,exynos-usb-phy";
-			reg = <0x125B0000 0x100>;
-		};
-	};
-
 	emmc-reset {
 		compatible = "samsung,emmc-reset";
 		reset-gpio = <&gpk1 2 0>;
@@ -98,12 +90,29 @@
 	};
 
 	pwm@139D0000 {
-			compatible = "samsung,exynos4210-pwm";
-			reg = <0x139D0000 0x100>;
-			samsung,pwm-outputs = <0>,<1>;
-			#pwm-cells = <3>;
-			enable-gpios = <&gpd0 0 GPIO_ACTIVE_HIGH>;
+		compatible = "samsung,exynos4210-pwm";
+		reg = <0x139D0000 0x100>;
+		samsung,pwm-outputs = <0>,<1>;
+		#pwm-cells = <3>;
+		enable-gpios = <&gpd0 0 GPIO_ACTIVE_HIGH>;
 	}; 
+
+	ehci@12580000 {
+		compatible = "samsung,exynos-ehci";
+		reg = <0x12580000 0x100>;               
+		
+		#address-cells = <1>;
+		#size-cells = <1>;
+		phy {
+				compatible = "samsung,exynos-usb-phy";
+				reg = <0x125B0000 0x100>;
+		};
+	};
+	
+	usb-phy-reset {
+		compatible = "smsc,usb-phy-reset";
+		reset-gpio = <&gpl2 2 GPIO_ACTIVE_LOW>;
+	};
 
 };
 
