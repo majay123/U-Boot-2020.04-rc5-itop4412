@@ -239,24 +239,28 @@ static void remove_inactive_children(struct uclass *uc, struct udevice *bus)
 
 void usb_phy_reset(void)
 {
-	// struct gpio_desc gpio = {};
-	// int node;
+	struct gpio_desc gpio = {};
+	int node;
 
-	// printf("usb phy reset\n");
-	// node = fdt_node_offset_by_compatible(gd->fdt_blob, 0,
-	// 				"smsc,usb-phy-reset");
-	// if (node < 0)
-	// 	return;
+	printf("usb phy reset\n");
+	node = fdt_node_offset_by_compatible(gd->fdt_blob, 0,
+					"smsc,usb-phy-reset");
+	if (node < 0){
+		printf("usb note is NULL\n");
+		return;
+	}
+		
 
-	// gpio_request_by_name_nodev(gd->fdt_blob, node, "reset-gpio", 0, &gpio,
-	// 							GPIOD_IS_OUT);
+	gpio_request_by_name_nodev(offset_to_ofnode(node), "reset-gpio", 0, &gpio,
+								GPIOD_IS_OUT);
 
-	// if (dm_gpio_is_valid(&gpio)) {
-	// 	dm_gpio_set_value(&gpio, 1);
-	// 	mdelay(50);
-	// 	dm_gpio_set_value(&gpio, 0);
-	// 	dm_gpio_free(gpio.dev, &gpio);
-	// }
+	if (dm_gpio_is_valid(&gpio)) {
+		printf("control gpio do something\n");
+		dm_gpio_set_value(&gpio, 0);
+		mdelay(50);
+		dm_gpio_set_value(&gpio, 1);
+		dm_gpio_free(gpio.dev, &gpio);
+	}
 }
 
 
@@ -270,8 +274,11 @@ int usb_init(void)
 	int ret;
 
 	asynch_allowed = 1;
-	// usb_hub_reset();
-	// usb_phy_reset();
+	//usb_hub_reset();
+	//usb_phy_reset();
+#ifdef CONFIG_TARGET_ITOP4412
+    usb_hub_reset();
+#endif
 
 	ret = uclass_get(UCLASS_USB, &uc);
 	if (ret)

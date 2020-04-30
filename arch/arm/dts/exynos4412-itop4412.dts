@@ -103,16 +103,17 @@
 		
 		#address-cells = <1>;
 		#size-cells = <1>;
+		status = "okay";
 		phy {
 				compatible = "samsung,exynos-usb-phy";
 				reg = <0x125B0000 0x100>;
 		};
 	};
 	
-	usb-phy-reset {
-		compatible = "smsc,usb-phy-reset";
-		reset-gpio = <&gpl2 2 GPIO_ACTIVE_LOW>;
-	};
+	// usb-phy-reset {
+	// 	compatible = "smsc,usb-phy-reset";
+	// 	reset-gpio = <&gpm2 4 GPIO_ACTIVE_LOW>;
+	// };
 
 };
 

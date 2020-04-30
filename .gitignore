@@ -94,3 +94,7 @@ GTAGS
 \#*#
 
 configs/itop4412_defconfig.ood
+
+configs/itop4412_defconfig.ddddd
+
+configs/itop4412_defconfig.oood
